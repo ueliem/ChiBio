@@ -1,0 +1,15 @@
+[Unit]
+Description=ChiBio Operating System
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/chibio/
+ExecStart=/root/chibio/cb.sh
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
