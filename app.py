@@ -19,6 +19,7 @@ import copy
 import csv
 import smbus2 as smbus
 
+dataDir = "/home/ChiBioData/"
 
 application = Flask(__name__)
 application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 #Try this https://stackoverflow.com/questions/23112316/using-flask-how-do-i-modify-the-cache-control-header-for-all-output/23115561#23115561
@@ -1312,6 +1313,7 @@ def CharacteriseDevice2(M):
                 
     
     filename = 'characterisation_data_' + M + '.txt'
+    filename = os.path.join(dataDir, filename)
     f = open(filename,'w')
     simplejson.dump(result,f)
     f.close()
@@ -1763,6 +1765,7 @@ def csvData(M):
 
     filename = sysData[M]['Experiment']['startTime'] + '_' + M + '_data' + '.csv'
     filename=filename.replace(":","_")
+    filename = os.path.join(dataDir, filename)
 
     lock.acquire() #We are avoiding writing to a file at the same time as we do digital communications, since it might potentially cause the computer to lag and consequently data transfer to fail.
     if os.path.isfile(filename) is False:
