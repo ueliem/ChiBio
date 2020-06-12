@@ -26,6 +26,7 @@ cp app.py $installdir
 cp static -r $installdir
 cp templates -r $installdir
 cp chibio.service /etc/systemd/system/chibio.service
+cp chibio-server.service /etc/systemd/system/chibio-server.service
 apt --assume-yes install python-pip
 pip install Gunicorn
 pip install flask
@@ -46,4 +47,6 @@ chmod +x cb.sh
 systemctl daemon-reload
 systemctl enable chibio
 systemctl start chibio
+systemctl enable chibio-server
+systemctl start chibio-server
 reboot now
