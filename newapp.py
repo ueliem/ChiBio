@@ -2,58 +2,73 @@ import os
 import random
 import time
 import math
-from flask import Flask, render_template, jsonify
-from threading import Thread, Lock
-import threading
-import numpy as np
+import multiprocessing
+from multiprocessing import Process, Queue
+from multiprocessing.managers import SyncManager
 from datetime import datetime, date
-import Adafruit_GPIO.I2C as I2C
-import Adafruit_BBIO.GPIO as GPIO
 import time
-import serial
 import simplejson
-import copy
 import csv
-import smbus2 as smbus
+from flask import Flask, render_template, jsonify
+from flask_restful import Resource, Api
 
 dataDir = "/home/ChiBioData/"
 
-@application.route('/')
+manager = SyncManager(address=('127.0.0.1', 7777), authkey='abc')
+manager.connect()
 
-@application.route('/getSysdata/')
+application = Flask(__name__)
+application.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 #Try this https://stackoverflow.com/questions/23112316/using-flask-how-do-i-modify-the-cache-control-header-for-all-output/23115561#23115561
+api = Api(application)
 
-@application.route('/changeDevice/<M>',methods=['POST'])
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
 
-@application.route('/scanDevices/<which>',methods=['POST'])
+api.add_resource(HelloWorld, '/')
 
-@application.route("/ClearTerminal/<M>",methods=['POST'])
+# @application.route('/')
+# def index():
 
-@application.route("/SetFPMeasurement/<item>/<Excite>/<Base>/<Emit1>/<Emit2>/<Gain>",methods=['POST'])
+# @application.route('/getSysData/')
+# def getSysData():
 
-@application.route("/SetOutputTarget/<item>/<M>/<value>",methods=['POST'])
+#@application.route('/changeDevice/<M>',methods=['POST'])
 
-@application.route("/SetOutputOn/<item>/<force>/<M>",methods=['POST'])
+#@application.route('/scanDevices/<which>',methods=['POST'])
 
-@application.route("/Direction/<item>/<M>",methods=['POST'])
+#@application.route("/ClearTerminal/<M>",methods=['POST'])
 
-@application.route("/GetSpectrum/<Gain>/<M>",methods=['POST'])
+#@application.route("/SetFPMeasurement/<item>/<Excite>/<Base>/<Emit1>/<Emit2>/<Gain>",methods=['POST'])
 
-@application.route("/SetCustom/<Program>/<Status>",methods=['POST'])
+#@application.route("/SetOutputTarget/<item>/<M>/<value>",methods=['POST'])
 
-@application.route("/SetLightActuation/<Excite>",methods=['POST'])
+#@application.route("/SetOutputOn/<item>/<force>/<M>",methods=['POST'])
 
-@application.route("/CharacteriseDevice/<M>/<Program>",methods=['POST'])     
+#@application.route("/Direction/<item>/<M>",methods=['POST'])
 
-@application.route("/CalibrateOD/<item>/<M>/<value>/<value2>",methods=['POST'])
+#@application.route("/GetSpectrum/<Gain>/<M>",methods=['POST'])
 
-@application.route("/MeasureOD/<M>",methods=['POST'])
+#@application.route("/SetCustom/<Program>/<Status>",methods=['POST'])
+
+#@application.route("/SetLightActuation/<Excite>",methods=['POST'])
+
+#@application.route("/CharacteriseDevice/<M>/<Program>",methods=['POST'])     
+
+#@application.route("/CalibrateOD/<item>/<M>/<value>/<value2>",methods=['POST'])
+
+#@application.route("/MeasureOD/<M>",methods=['POST'])
    
-@application.route("/MeasureFP/<M>",methods=['POST'])    
+#@application.route("/MeasureFP/<M>",methods=['POST'])    
 
-@application.route("/MeasureTemp/<which>/<M>",methods=['POST'])
+#@application.route("/MeasureTemp/<which>/<M>",methods=['POST'])
 
-@application.route("/ExperimentReset",methods=['POST'])
+#@application.route("/ExperimentReset",methods=['POST'])
 
-@application.route("/Experiment/<value>/<M>",methods=['POST'])
+#@application.route("/Experiment/<value>/<M>",methods=['POST'])
 
+def main():
+    application.run(debug=True,threaded=True,host='0.0.0.0',port=5000)
+
+if __name__ == "__main__": main()
 

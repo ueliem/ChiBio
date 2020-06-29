@@ -1,7 +1,11 @@
+from multiprocessing import Process, Queue
+import multiprocessing
+import sched
 import smbus2 as smbus
 
-class Reactor:
+class Reactor(Process):
     def __init__(self, reactorNum, logQ):
+        self.scheduler = sched.scheduler()
         self.detected = False
         self.reactorNum = reactorNum
         self.logQ = logQ

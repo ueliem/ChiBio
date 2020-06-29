@@ -1,0 +1,57 @@
+{
+    "DAC" : {"LEDA" : "00000100","LEDB" : "00000000","LEDC" : "00000110","LEDD" : "00000001","LEDE" : "00000101","LEDF" : "00000011","LEDG" : "00000010","LASER650" : "00000111"},
+    "Multiplexer" : {"device" : 0 , "M0" : "00000001","M1" : "00000010","M2" : "00000100","M3" : "00001000","M4" : "00010000","M5" : "00100000","M6" : "01000000","M7" : "10000000"},
+    "UIDevice" : "M0",
+    "Watchdog" : {"pin" : "P8_11","thread" : 0,"ON" : 1},
+    "FailCount" : 0,
+    "All" : {"ONL" : "0xFA", "ONH" : "0xFB", "OFFL" : "0xFC", "OFFH" : "0xFD"},
+    "Stir" : {"ONL" : "0x06", "ONH" : "0x07", "OFFL" : "0x08", "OFFH" : "0x09"},
+    "Heat" : {"ONL" : "0x3E", "ONH" : "0x3F", "OFFL" : "0x40", "OFFH" : "0x41"},
+    "UV" : {"ONL" : "0x42", "ONH" : "0x43", "OFFL" : "0x44", "OFFH" : "0x45"},
+    "LEDA" : {"ONL" : "0x0E", "ONH" : "0x0F", "OFFL" : "0x10", "OFFH" : "0x11"},
+    "LEDB" : {"ONL" : "0x16", "ONH" : "0x17", "OFFL" : "0x18", "OFFH" : "0x19"},
+    "LEDC" : {"ONL" : "0x0A", "ONH" : "0x0B", "OFFL" : "0x0C", "OFFH" : "0x0D"},
+    "LEDD" : {"ONL" : "0x1A", "ONH" : "0x1B", "OFFL" : "0x1C", "OFFH" : "0x1D"},
+    "LEDE" : {"ONL" : "0x22", "ONH" : "0x23", "OFFL" : "0x24", "OFFH" : "0x25"},
+    "LEDF" : {"ONL" : "0x1E", "ONH" : "0x1F", "OFFL" : "0x20", "OFFH" : "0x21"},
+    "LEDG" : {"ONL" : "0x12", "ONH" : "0x13", "OFFL" : "0x14", "OFFH" : "0x15"},
+    "Pump1" : {
+        "In1" : {"ONL" : "0x06", "ONH" : "0x07", "OFFL" : "0x08", "OFFH" : "0x09"},
+        "In2" : {"ONL" : "0x0A", "ONH" : "0x0B", "OFFL" : "0x0C", "OFFH" : "0x0D"}
+    },
+    "Pump2" : {
+        "In1" : {"ONL" : "0x0E", "ONH" : "0x0F", "OFFL" : "0x10", "OFFH" : "0x11"},
+        "In2" : {"ONL" : "0x12", "ONH" : "0x13", "OFFL" : "0x14", "OFFH" : "0x15"}
+    },
+    "Pump3" : {
+        "In1" : {"ONL" : "0x16", "ONH" : "0x17", "OFFL" : "0x18", "OFFH" : "0x19"},
+        "In2" : {"ONL" : "0x1A", "ONH" : "0x1B", "OFFL" : "0x1C", "OFFH" : "0x1D"}
+    },
+    "Pump4" : {
+        "In1" : {"ONL" : "0x1E", "ONH" : "0x1F", "OFFL" : "0x20", "OFFH" : "0x21"},
+        "In2" : {"ONL" : "0x22", "ONH" : "0x23", "OFFL" : "0x24", "OFFH" : "0x25"}
+    },
+    "AS7341" : {
+        "0x00" : {"A" : "nm470", "B" : "U"},
+        "0x01" : {"A" : "U", "B" : "nm410"},
+        "0x02" : {"A" : "U", "B" : "U"},
+        "0x03" : {"A" : "nm670", "B" : "U"},
+        "0x04" : {"A" : "U", "B" : "nm583"},
+        "0x05" : {"A" : "nm510", "B" : "nm440"},
+        "0x06" : {"A" : "nm550", "B" : "U"},
+        "0x07" : {"A" : "U", "B" : "nm620"},
+        "0x08" : {"A" : "CLEAR", "B" : "U"},
+        "0x09" : {"A" : "nm550", "B" : "U"},
+        "0x0A" : {"A" : "U", "B" : "nm620"},
+        "0x0B" : {"A" : "U", "B" : "U"},
+        "0x0C" : {"A" : "nm440", "B" : "U"},
+        "0x0D" : {"A" : "U", "B" : "nm510"},
+        "0x0E" : {"A" : "nm583", "B" : "nm670"},
+        "0x0F" : {"A" : "nm470", "B" : "U"},
+        "0x10" : {"A" : "ExtGPIO", "B" : "nm410"},
+        "0x11" : {"A" : "CLEAR", "B" : "ExtINT"},
+        "0x12" : {"A" : "DARK", "B" : "U"},
+        "0x13" : {"A" : "FLICKER", "B" : "NIR"}
+    }
+}
+
