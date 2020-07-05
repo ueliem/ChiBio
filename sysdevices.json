@@ -1,0 +1,14 @@
+{"M0" : {
+    "AS7341" : {"device" : 0},
+    "ThermometerInternal" : {"device" : 0},
+    "ThermometerExternal" : {"device" : 0},
+    "ThermometerIR" : {"device" : 0,"address" :0},
+    "DAC" : {"device" : 0},
+    "Pumps" : {"device" : 0,"startup" : 0, "frequency" : 0},
+    "PWM" : {"device" : 0,"startup" : 0, "frequency" : 0},
+    "Pump1" : {"active" : 0},
+    "Pump2" : {"active" : 0},
+    "Pump3" : {"active" : 0},
+    "Pump4" : {"active" : 0}
+}}
+

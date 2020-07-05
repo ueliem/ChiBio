@@ -27,17 +27,13 @@ class HelloWorld(Resource):
 
 api.add_resource(HelloWorld, '/')
 
-# @application.route('/')
-# def index():
+#@application.route('/')
+#def index():
 
-# @application.route('/getSysData/')
-# def getSysData():
-
-#@application.route('/changeDevice/<M>',methods=['POST'])
+#@application.route('/getSysData/')
+#def getSysData():
 
 #@application.route('/scanDevices/<which>',methods=['POST'])
-
-#@application.route("/ClearTerminal/<M>",methods=['POST'])
 
 #@application.route("/SetFPMeasurement/<item>/<Excite>/<Base>/<Emit1>/<Emit2>/<Gain>",methods=['POST'])
 
@@ -48,8 +44,6 @@ api.add_resource(HelloWorld, '/')
 #@application.route("/Direction/<item>/<M>",methods=['POST'])
 
 #@application.route("/GetSpectrum/<Gain>/<M>",methods=['POST'])
-
-#@application.route("/SetCustom/<Program>/<Status>",methods=['POST'])
 
 #@application.route("/SetLightActuation/<Excite>",methods=['POST'])
 
@@ -62,10 +56,6 @@ api.add_resource(HelloWorld, '/')
 #@application.route("/MeasureFP/<M>",methods=['POST'])    
 
 #@application.route("/MeasureTemp/<which>/<M>",methods=['POST'])
-
-#@application.route("/ExperimentReset",methods=['POST'])
-
-#@application.route("/Experiment/<value>/<M>",methods=['POST'])
 
 def main():
     application.run(debug=True,threaded=True,host='0.0.0.0',port=5000)

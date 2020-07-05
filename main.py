@@ -1,55 +1,52 @@
-#!/usr/bin/env python3
-
-import os
-import random
 import time
-import math
-from flask import Flask, render_template, jsonify
-from multiprocessing import Process, Queue
-import multiprocessing
-import numpy as np
-from datetime import datetime, date
-# import Adafruit_GPIO.I2C as I2C
-# import Adafruit_BBIO.GPIO as GPIO
-import time
-# import serial
-# import simplejson
-import copy
+from multiprocessing import Process
+from multiprocessing.managers import SyncManager
+import simplejson
 import csv
-# import smbus2 as smbus
-import sched
 from collections import deque
 
-from src.logger import Logger
-from src.bbbdummy import BBBDummy
-from src.reactor import Reactor
+import hal
+from hal import HAL, Watchdog
 
-reactorCount = 8
+REACTOR_COUNT = 8
 
-logQueue = Queue(100)
-
-class Manager(Process):
-    def __init__(self, logQ):
-        super(Manager, self).__init__()
-        self.running = False
-        self.logQ = logQ
-        self.scheduler = sched.scheduler()
-        self.reactors = deque([Reactor(i) for i in range(reactorCount)], maxlen=8)
-    def scanForReactors(self):
-        return [r.reactorNum for r in self.reactors if r.scan() != None]
-    def scheduleCycle(self):
-        for reactor in [r for r in self.reactors if r.detected]:
-            self.scheduler.enter(0, ....)
-            pass
-    def runCycle(self):
-        self.scheduler.run()
+class Commander(Process):
+    def __init__(self, in_q, log_q, hwlock, running):
+        (Process.__init__(self))
+        pass
+    def run(self):
+        time.sleep(2.0)
+        self.initialise_all()
+        self.log("started")
+        while not self.running.is_set():
+            self.set_output_on('M0', 'LEDA', 1)
+            time.sleep(1)
+            self.set_output_on('M0', 'LEDA', 0)
+            self.log("testing")
+            time.sleep(3)
+    def log(self, msg):
+        self.log_q.put(LogPacket(msg))
 
 def main():
-    logger = Logger(logQueue)
-    manager = Manager(logQueue)
-    logger.start()
+    manager = SyncManager(address=('', 7777), authkey='abc')
     manager.start()
+    q1 = manager.Queue()
+    q2 = manager.Queue()
+    #hardware_lock = multiprocessing.Lock()
+    #manager.register('Lock', lambda _: hardware_lock, AcquirerProxy)
+    running = manager.Event()
+    hwlock = manager.RLock()
+    q2.put(hal.LogPacket("Created manager."))
+    wd = Watchdog(q2, hwlock, running)
+    wd.start()
+    #time.sleep(2.0)
+    h = HAL(q1, q2, hwlock, running)
+    #h.initialiseAll()
+    h.start()
+    #print("init")
+    while not running.is_set():
+        print(q2.get())
 
-if __name__ == '__main__':
-    main()
+
+if __name__ == '__main__': main()
 

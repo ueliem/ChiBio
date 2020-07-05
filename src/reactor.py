@@ -4,14 +4,20 @@ import sched
 import smbus2 as smbus
 
 class Reactor(Process):
-    def __init__(self, reactorNum, logQ):
+    def __init__(self, reactor_num, com_q, log_q):
         self.scheduler = sched.scheduler()
         self.detected = False
-        self.reactorNum = reactorNum
-        self.logQ = logQ
-        self.pumpRate = [0.0] * 4
-    def logError(self):
-        pass
+        self.reactor_num = reactor_num
+        self.log_q = log_q
+        self.com_q = com_q
+        self.pump_rate = [0.0] * 4
+    def run(self):
+        time.sleep(2.0)
+        self.log("Reactor controller " + str(self.reactor_num) + " started.")
+        while not self.running.is_set():
+            pass
+    def log(self, msg):
+        self.log_q.put(LogPacket(msg))
     def scan(self):
         pass
     def startPump(self, pump):
