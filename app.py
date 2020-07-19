@@ -72,6 +72,7 @@ sysData = {'M0' : {
    'FP1' : {'ON' : 0 ,'LED' : 0,'BaseBand' : 0, 'Emit11Band' : 0,'Emit2Band' : 0,'Base' : 0, 'Emit11' : 0,'Emit2' : 0,'BaseRecord' : 0, 'Emit1Record' : 0,'Emit2Record' : 0 ,'Gain' : 0},
    'FP2' : {'ON' : 0 ,'LED' : 0,'BaseBand' : 0, 'Emit11Band' : 0,'Emit2Band' : 0,'Base' : 0, 'Emit11' : 0,'Emit2' : 0,'BaseRecord' : 0, 'Emit1Record' : 0,'Emit2Record' : 0 ,'Gain' : 0},
    'FP3' : {'ON' : 0 ,'LED' : 0,'BaseBand' : 0, 'Emit11Band' : 0,'Emit2Band' : 0,'Base' : 0, 'Emit11' : 0,'Emit2' : 0,'BaseRecord' : 0, 'Emit1Record' : 0,'Emit2Record' : 0 ,'Gain' : 0},
+   'FP4' : {'ON' : 0 ,'LED' : 0,'BaseBand' : 0, 'Emit11Band' : 0,'Emit2Band' : 0,'Base' : 0, 'Emit11' : 0,'Emit2' : 0,'BaseRecord' : 0, 'Emit1Record' : 0,'Emit2Record' : 0 ,'Gain' : 0},
    'biofilm' : {'LEDA' : {'nm410' : 0, 'nm440' : 0, 'nm470' : 0, 'nm510' : 0, 'nm550' : 0, 'nm583' : 0, 'nm620' : 0, 'nm670' : 0,'CLEAR' : 0,'NIR' : 0},
                 'LEDB' : {'nm410' : 0, 'nm440' : 0, 'nm470' : 0, 'nm510' : 0, 'nm550' : 0, 'nm583' : 0, 'nm620' : 0, 'nm670' : 0,'CLEAR' : 0,'NIR' : 0},
                 'LEDC' : {'nm410' : 0, 'nm440' : 0, 'nm470' : 0, 'nm510' : 0, 'nm550' : 0, 'nm583' : 0, 'nm620' : 0, 'nm670' : 0,'CLEAR' : 0,'NIR' : 0},
@@ -234,6 +235,20 @@ def initialise(M):
     sysData[M][FP]['Emit2Record']=[]
     sysData[M][FP]['Gain']="x10"
     FP='FP3'
+    sysData[M][FP]['ON']=0
+    sysData[M][FP]['LED']="LEDE"
+    sysData[M][FP]['Base']=0
+    sysData[M][FP]['Emit1']=0
+    sysData[M][FP]['Emit2']=0
+    sysData[M][FP]['BaseBand']="CLEAR"
+    sysData[M][FP]['Emit1Band']="nm620"
+    sysData[M][FP]['Emit2Band']="nm670"
+    sysData[M][FP]['BaseRecord']=[]
+    sysData[M][FP]['Emit1Record']=[]
+    sysData[M][FP]['Emit2Record']=[]
+    sysData[M][FP]['Gain']="x10"
+ 
+    FP='FP4'
     sysData[M][FP]['ON']=0
     sysData[M][FP]['LED']="LEDE"
     sysData[M][FP]['Base']=0
@@ -1617,7 +1632,7 @@ def MeasureFP(M):
     M=str(M)
     if (M=="0"):
         M=sysItems['UIDevice']
-    for FP in ['FP1','FP2','FP3']:
+    for FP in ['FP1','FP2','FP3','FP4']:
         if sysData[M][FP]['ON']==1:
             Gain=int(sysData[M][FP]['Gain'][1:])
             out=GetTransmission(M,sysData[M][FP]['LED'],[sysData[M][FP]['BaseBand'],sysData[M][FP]['Emit1Band'],sysData[M][FP]['Emit2Band']],Gain,255)
@@ -1716,6 +1731,7 @@ def csvData(M):
                   'LED_500nm_setpoint','LED_523nm_setpoint','LED_595nm_setpoint','LED_623nm_setpoint',
                   'LED_6500K_setpoint','laser_setpoint','LED_UV_int','FP1_base','FP1_emit1','FP1_emit2','FP2_base',
                   'FP2_emit1','FP2_emit2','FP3_base','FP3_emit1','FP3_emit2','custom_prog_param1','custom_prog_param2',
+                  'FP4_base','FP4_emit1','FP4_emit2',
                   'custom_prog_param3','custom_prog_status','zigzag_target','growth_rate']
 
     row=[sysData[M]['time']['record'][-1],
@@ -1737,7 +1753,7 @@ def csvData(M):
     for LED in ['LEDA','LEDB','LEDC','LEDD','LEDE','LEDF','LEDG','LASER650']:
         row=row+[sysData[M][LED]['target']]
     row=row+[sysData[M]['UV']['target']*sysData[M]['UV']['ON']]
-    for FP in ['FP1','FP2','FP3']:
+    for FP in ['FP1','FP2','FP3','FP4']:
         if sysData[M][FP]['ON']==1:
             row=row+[sysData[M][FP]['Base']]
             row=row+[sysData[M][FP]['Emit1']]
@@ -1821,7 +1837,7 @@ def downsample(M):
     sysData[M]['GrowthRate']['record']=downsampleFunc(sysData[M]['GrowthRate']['record'],index)
     
         
-    for FP in ['FP1','FP2','FP3']:
+    for FP in ['FP1','FP2','FP3','FP4']:
         sysData[M][FP]['BaseRecord']=downsampleFunc(sysData[M][FP]['BaseRecord'],index)
         sysData[M][FP]['Emit1Record']=downsampleFunc(sysData[M][FP]['Emit1Record'],index)
         sysData[M][FP]['Emit2Record']=downsampleFunc(sysData[M][FP]['Emit2Record'],index)
@@ -2130,7 +2146,7 @@ def runExperiment(M,placeholder):
     sysData[M]['Pump3']['record'].append(sysData[M]['Pump3']['target']*float(sysData[M]['Pump3']['ON']))
     sysData[M]['Pump4']['record'].append(sysData[M]['Pump4']['target']*float(sysData[M]['Pump4']['ON']))
     sysData[M]['GrowthRate']['record'].append(sysData[M]['GrowthRate']['current']*float(sysData[M]['Zigzag']['ON']))
-    for FP in ['FP1','FP2','FP3']:
+    for FP in ['FP1','FP2','FP3','FP4']:
         if sysData[M][FP]['ON']==1:
             sysData[M][FP]['BaseRecord'].append(sysData[M][FP]['Base'])
             sysData[M][FP]['Emit1Record'].append(sysData[M][FP]['Emit1'])
